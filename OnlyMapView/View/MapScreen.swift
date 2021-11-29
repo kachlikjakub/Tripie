@@ -38,6 +38,7 @@ struct MapScreen: View {
                                 self.ShownPlace = marker
                                 self.defaultRate = String(marker.properties.rate)
                                 self.defaultCategory = marker.properties.kinds
+                                self.GottenApiResults.getData(xid: marker.properties.xid)
                                 withAnimation{
                                     MapCoordinates.defaultLocation.center = CLLocationCoordinate2D(latitude: CLLocationDegrees(marker.geometry.coordinates[0]), longitude: CLLocationDegrees(marker.geometry.coordinates[1]))
                                 }
@@ -126,13 +127,14 @@ struct MapScreen: View {
                                         .font(.title)
                                         .lineLimit(1)
                                     Spacer()
-                                    NavigationLink(destination:LazyView(PlaceDetail(place: self.ShownPlace!))){
-                                        Text("Find more")
-                                            .font(.title3)
-                                            .padding(.horizontal)
-                                            .padding(.bottom)
+                                    if(self.ShownPlace != nil){
+                                        NavigationLink(destination:LazyView( NewPlaceDetail(apiRadius: self.ShownPlace!, apiDetail: GottenApiResults))){
+                                            Text("Find more")
+                                                .font(.title3)
+                                                .padding(.horizontal)
+                                                .padding(.bottom)
+                                        }
                                     }
-                                    .disabled(self.ShownPlace == nil)
                                 }
 
                                 Text("Place rating (1-7): \((ShownPlace != nil) ? String(ShownPlace!.properties.rate) : "no data")")

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @Environment (\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var coreData: FetchedResults<SavedPlaces>
+
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
     }

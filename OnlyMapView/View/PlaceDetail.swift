@@ -7,65 +7,126 @@
 
 import SwiftUI
 
-struct PlaceDetail: View {
-    @State var place : Features
-    @ObservedObject var detail = Api()
+
+struct PlaceInfos{
+    var xid : String
+    var name : String
+    var coordinate : [Float]
+    var dist : Float?
+    var rate : Int16
+    var osm : String?
+    var description : String?
+    var wikipedia : String?
+    var url : String?
+    var image : String?
+    var kinds: String?
     
-    init(place:Features){
-        self.place = place
-        detail.getData(xid: place.properties.xid)
+}
+
+struct NewPlaceDetail: View {
+    @Environment (\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var coreData: FetchedResults<SavedPlaces>
+    
+    var place : PlaceInfos
+    
+    init(apiRadius: Features, apiDetail:Api){
+        let prop = apiRadius.properties
+        place = PlaceInfos(
+            xid: apiRadius.properties.xid,
+            name: prop.name,
+            coordinate: apiRadius.geometry.coordinates,
+            rate: Int16(prop.rate),
+            description: apiDetail.detail!.wikipedia_extracts?.text ?? "No description",
+            wikipedia: apiDetail.detail!.wikipedia,
+            url: apiDetail.detail!.url,
+            image: apiDetail.detail!.image,
+            kinds: prop.kinds)
+    }
+    
+    init(DataCore: FetchedResults<SavedPlaces>.Element){
+        place = PlaceInfos(
+            xid: DataCore.xid!,
+            name: DataCore.name!,
+            coordinate: [14,15],
+            rate: DataCore.rate,
+            description: DataCore.wikipedia_extracts,
+            wikipedia: DataCore.wikipedia,
+            url: DataCore.url,
+            image: DataCore.image,
+            kinds: DataCore.kinds)
     }
     
     var body: some View {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text(place.properties.name)
+                    Text(place.name)
                         .font(.largeTitle)
                         .foregroundColor(.black)
-                    Label("Distance: \(String(Int(place.properties.dist))) m", systemImage: "app.connected.to.app.below.fill")
+                    /*Label("Distance: \(String(Int(place.dist))) m", systemImage: "app.connected.to.app.below.fill")
                         .foregroundColor(.gray)
                         .padding(.bottom, 3)
-                    Label("Famous rate: \(place.properties.rate)", systemImage: "star")
+                     */
+                    Label("Famous rate: \(place.rate)", systemImage: "star")
                         .foregroundColor(.gray)
                         .padding(.bottom, 3)
-                    if (detail.detail != nil){
-                        if let imageURL = self.detail.detail!.image{
+                    
+                        if let imageURL = self.place.image{
                             Link(destination:URL(string: imageURL)!){
                                 Label("Picture", systemImage: "photo")
                                     .padding(.bottom, 3)
                             }
                         }
-                        if let wikiURL = self.detail.detail!.wikipedia{
+                        if let wikiURL = self.place.wikipedia{
                             Link(destination:URL(string: wikiURL)!){
                                 Label("Wikipedia", systemImage: "link")
                                     .padding(.bottom, 3)
                             }
                         }
-                        if let website = self.detail.detail!.url{
+                        if let website = self.place.url{
                             Link(destination:URL(string: website)!){
                                 Label("Website", systemImage: "network")
                                     .padding(.bottom, 3)
                             }
                         }
-                    }
+                    
                 }
                 .font(.title3)
                 .foregroundColor(.blue)
                 .padding(.bottom, 20)
                     Spacer()
                 
-                if (detail.detail != nil){
+                
                     ScrollView{
-                    Text(self.detail.detail!.wikipedia_extracts?.text ?? "Not available")
+                    Text(self.place.description ?? "No description available")
                     }.padding(.bottom, 10)
-                }
-                else{
-                    Text("notloaded")
-                }
+
 Spacer()
                 HStack{
-                    Button(action: {}){
-                        Label("Favorite", systemImage: "heart")
+                    Button(action: {
+                        if (coreData.contains{$0.xid == place.xid}){
+                            let elementToDelete = coreData.first{$0.xid == place.xid}
+                            moc.delete(elementToDelete!)
+                            
+                            try? moc.save()
+                        }
+                        else{
+                            let FavPlaceToSave = SavedPlaces(context: moc)
+                            FavPlaceToSave.dateAdded = Date()
+                            FavPlaceToSave.rate = Int16(place.rate)
+                            FavPlaceToSave.name = place.name
+                            FavPlaceToSave.xid = place.xid
+                            FavPlaceToSave.wikipedia_extracts = self.place.description
+                            FavPlaceToSave.url = self.place.url
+                            FavPlaceToSave.image = self.place.image
+                            FavPlaceToSave.wikipedia = self.place.wikipedia
+
+                            try? moc.save()
+                        }
+                    }){
+                        coreData.contains{$0.xid == place.xid} ?
+                            Label("Unfavorite", systemImage: "heart.fill") :
+                            Label("Favorite", systemImage: "heart")
+
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.red)
@@ -79,12 +140,15 @@ Spacer()
                 }
                 .padding(.horizontal, 25.0)
             }
+            .navigationTitle("")
             .padding()
         }
 }
 
-struct PlaceDetail_Previews: PreviewProvider {
+struct NewPlaceDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceDetail(place: Features(type: "type", id: "33", geometry: Geometry(type: "S", coordinates: [32,55]), properties: Properties(xid: "32", name: "Panství", dist: 35.6, rate: 6, osm: nil, wikidata: "Data", kinds: "koozoroh")))
+        NewPlaceDetail(
+            apiRadius: Features(type: "type", id: "33", geometry: Geometry(type: "S", coordinates: [32,55]), properties: Properties(xid: "32", name: "Panství", dist: 35.6, rate: 6, osm: nil, wikidata: "Data", kinds: "koozoroh")),
+            apiDetail: Api())
     }
 }

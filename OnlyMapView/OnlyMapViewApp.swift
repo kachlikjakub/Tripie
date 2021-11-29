@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct OnlyMapViewApp: App {
+    let data = DataController.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, data.container.viewContext)
         }
     }
 }
