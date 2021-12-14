@@ -23,10 +23,11 @@ struct PlaceInfos{
     
 }
 
-struct NewPlaceDetail: View {
+struct PlaceDetail: View {
     @Environment (\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var coreData: FetchedResults<SavedPlaces>
-    
+    @FetchRequest(sortDescriptors: []) var FavoriteSavedPlaces: FetchedResults<SavedPlaces>
+    @FetchRequest(sortDescriptors: []) var ListOfTrips: FetchedResults<TripLists>
+    @FetchRequest(sortDescriptors: []) var ListOfSavedPlaces: FetchedResults<TripPlaces>
     var place : PlaceInfos
     
     init(apiRadius: Features, apiDetail:Api){
@@ -56,16 +57,26 @@ struct NewPlaceDetail: View {
             kinds: DataCore.kinds)
     }
     
+    init(place:TripPlaces){
+        self.place = PlaceInfos(
+            xid: place.xid!,
+            name: place.name!,
+            coordinate: [14,15],
+            rate: place.rate,
+            description: place.wikipedia_extracts,
+            wikipedia: place.wikipedia,
+            url: place.url,
+            image: place.image,
+            kinds: place.kinds)
+    }
+    
     var body: some View {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Text(place.name)
                         .font(.largeTitle)
                         .foregroundColor(.black)
-                    /*Label("Distance: \(String(Int(place.dist))) m", systemImage: "app.connected.to.app.below.fill")
-                        .foregroundColor(.gray)
-                        .padding(.bottom, 3)
-                     */
+
                     Label("Famous rate: \(place.rate)", systemImage: "star")
                         .foregroundColor(.gray)
                         .padding(.bottom, 3)
@@ -83,7 +94,7 @@ struct NewPlaceDetail: View {
                             }
                         }
                         if let website = self.place.url{
-                            Link(destination:URL(string: website)!){
+                            Link(destination:( URL(string: website)!)){
                                 Label("Website", systemImage: "network")
                                     .padding(.bottom, 3)
                             }
@@ -103,8 +114,8 @@ struct NewPlaceDetail: View {
 Spacer()
                 HStack{
                     Button(action: {
-                        if (coreData.contains{$0.xid == place.xid}){
-                            let elementToDelete = coreData.first{$0.xid == place.xid}
+                        if (FavoriteSavedPlaces.contains{$0.xid == place.xid}){
+                            let elementToDelete = FavoriteSavedPlaces.first{$0.xid == place.xid}
                             moc.delete(elementToDelete!)
                             
                             try? moc.save()
@@ -123,7 +134,7 @@ Spacer()
                             try? moc.save()
                         }
                     }){
-                        coreData.contains{$0.xid == place.xid} ?
+                        FavoriteSavedPlaces.contains{$0.xid == place.xid} ?
                             Label("Unfavorite", systemImage: "heart.fill") :
                             Label("Favorite", systemImage: "heart")
 
@@ -132,11 +143,14 @@ Spacer()
                     .tint(.red)
                     
                     Spacer()
-                    Button(action: {}){
+                    
+                    NavigationLink(destination: TripPicker(placeId:place, triplist:ListOfTrips)){
                         Label("Add to trip", systemImage: "map")
+                            .padding(8)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                            .foregroundColor(.white)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.blue)
                 }
                 .padding(.horizontal, 25.0)
             }
@@ -147,7 +161,7 @@ Spacer()
 
 struct NewPlaceDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NewPlaceDetail(
+        PlaceDetail(
             apiRadius: Features(type: "type", id: "33", geometry: Geometry(type: "S", coordinates: [32,55]), properties: Properties(xid: "32", name: "Panství", dist: 35.6, rate: 6, osm: nil, wikidata: "Data", kinds: "koozoroh")),
             apiDetail: Api())
     }

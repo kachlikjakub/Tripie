@@ -26,6 +26,7 @@ struct MapScreen: View {
     @State var defaultRate : String?
     @State var defaultCategory : String?
     @State var CallLimit : Float = 10.0
+    @State var showingAlert = false
 
     
     var body: some View {
@@ -43,15 +44,16 @@ struct MapScreen: View {
                                     MapCoordinates.defaultLocation.center = CLLocationCoordinate2D(latitude: CLLocationDegrees(marker.geometry.coordinates[0]), longitude: CLLocationDegrees(marker.geometry.coordinates[1]))
                                 }
                             }){
-                            Image(systemName: "mappin.circle")
-                                .font(.largeTitle)
-                                .foregroundColor(.blue)
+                                Image(systemName:"mappin.circle")
+                                    .font(self.ShownPlace?.properties.xid == marker.properties.xid ? .system(size: 40) : .system(size: 35))
+                                .foregroundColor(self.ShownPlace?.properties.xid == marker.properties.xid ? .red : .blue)
                                 .background(Color.white)
                                 .cornerRadius(.infinity)
                             }
                         }
                     })
                         .ignoresSafeArea()
+
                     RoundedRectangle(cornerRadius: .infinity)
                         .stroke(lineWidth: 5)
                         .cornerRadius(.infinity)
@@ -72,7 +74,7 @@ struct MapScreen: View {
                             VStack(alignment:.trailing) {
                                 Button(action: {
                                     let searchRadius = Int(MapCoordinates.defaultLocation.span.longitudeDelta * 111139 / 3 * (RatingSlider/100))
-                                     GottenApiResults.getData(radius: searchRadius, mapCoordinates: MapCoordinates.defaultLocation.center, filter: FilterModel)
+                                    GottenApiResults.getData(radius: searchRadius, mapCoordinates: MapCoordinates.defaultLocation.center, filter: FilterModel)
                                 })
                                 {
                                     Text("Search")
@@ -112,12 +114,25 @@ struct MapScreen: View {
                         Spacer()
                         
                         VStack(alignment:.leading) {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "ellipsis")
-                                    .font(.largeTitle)
-                                    .padding([.top, .leading, .trailing], 10)
-                                Spacer()
+                            ZStack{
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "ellipsis")
+                                        .font(.largeTitle)
+                                        .padding([.top, .leading, .trailing], 10)
+                                    Spacer()
+
+                                }
+                                if((self.ShownPlace) != nil){
+                                    HStack{
+                                        Spacer()
+                                        Button(action:{self.ShownPlace = nil}){
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.title2)
+                                                .foregroundColor(Color("CrossButton"))
+                                        }
+                                    }
+                                }
                             }
                             VStack (alignment:.leading) {
                                 HStack {
@@ -128,7 +143,7 @@ struct MapScreen: View {
                                         .lineLimit(1)
                                     Spacer()
                                     if(self.ShownPlace != nil){
-                                        NavigationLink(destination:LazyView( NewPlaceDetail(apiRadius: self.ShownPlace!, apiDetail: GottenApiResults))){
+                                        NavigationLink(destination:LazyView( PlaceDetail(apiRadius: self.ShownPlace!, apiDetail: GottenApiResults))){
                                             Text("Find more")
                                                 .font(.title3)
                                                 .padding(.horizontal)

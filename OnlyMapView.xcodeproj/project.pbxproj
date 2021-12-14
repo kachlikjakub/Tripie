@@ -8,7 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		7C0EE0E92742632700001317 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0EE0E82742632700001317 /* LazyView.swift */; };
-		7C1D7E9E2741843900AA1D4C /* PlaceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1D7E9D2741843900AA1D4C /* PlaceDetail.swift */; };
+		7C21B33927609D2A0009A77E /* TripPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B33827609D2A0009A77E /* TripPickerView.swift */; };
+		7C21B33B2760B95B0009A77E /* TripPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B33A2760B95B0009A77E /* TripPickerModel.swift */; };
+		7C21B33D2760BD880009A77E /* TripPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B33C2760BD880009A77E /* TripPickerViewModel.swift */; };
+		7C21B33F2760C9540009A77E /* DetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B33E2760C9540009A77E /* DetailList.swift */; };
+		7C21B3442760D1E50009A77E /* TripLists+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B3402760D1E50009A77E /* TripLists+CoreDataClass.swift */; };
+		7C21B3452760D1E50009A77E /* TripLists+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B3412760D1E50009A77E /* TripLists+CoreDataProperties.swift */; };
+		7C21B3462760D1E50009A77E /* TripPlaces+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B3422760D1E50009A77E /* TripPlaces+CoreDataClass.swift */; };
+		7C21B3472760D1E50009A77E /* TripPlaces+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C21B3432760D1E50009A77E /* TripPlaces+CoreDataProperties.swift */; };
+		7C341B512750D76A00343467 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C341B4F2750D76A00343467 /* PlacesModel.xcdatamodeld */; };
+		7C341B532750D90700343467 /* DataCoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C341B522750D90700343467 /* DataCoreController.swift */; };
 		7C4766FA274E98A200E152E8 /* SFSafariViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4766F9274E98A200E152E8 /* SFSafariViewWrapper.swift */; };
 		7C94AD38273D72E70092229E /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C94AD37273D72E70092229E /* FilterModel.swift */; };
 		7C94AD3A273D7EDD0092229E /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C94AD39273D7EDD0092229E /* FilterViewModel.swift */; };
@@ -29,11 +38,21 @@
 		7CD068302736DBB6008CCE9E /* FavoritePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD0682F2736DBB6008CCE9E /* FavoritePlaces.swift */; };
 		7CD068322736DBBD008CCE9E /* MyTrips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD068312736DBBD008CCE9E /* MyTrips.swift */; };
 		7CD068342736DBC8008CCE9E /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD068332736DBC8008CCE9E /* Contacts.swift */; };
+		7CD52D04275271790080DDAC /* PlaceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD52D03275271790080DDAC /* PlaceDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7C0EE0E82742632700001317 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
-		7C1D7E9D2741843900AA1D4C /* PlaceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetail.swift; sourceTree = "<group>"; };
+		7C21B33827609D2A0009A77E /* TripPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPickerView.swift; sourceTree = "<group>"; };
+		7C21B33A2760B95B0009A77E /* TripPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPickerModel.swift; sourceTree = "<group>"; };
+		7C21B33C2760BD880009A77E /* TripPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPickerViewModel.swift; sourceTree = "<group>"; };
+		7C21B33E2760C9540009A77E /* DetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailList.swift; sourceTree = "<group>"; };
+		7C21B3402760D1E50009A77E /* TripLists+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TripLists+CoreDataClass.swift"; path = "OnlyMapView/Model/TripLists+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7C21B3412760D1E50009A77E /* TripLists+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TripLists+CoreDataProperties.swift"; path = "OnlyMapView/Model/TripLists+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		7C21B3422760D1E50009A77E /* TripPlaces+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TripPlaces+CoreDataClass.swift"; path = "OnlyMapView/Model/TripPlaces+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		7C21B3432760D1E50009A77E /* TripPlaces+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TripPlaces+CoreDataProperties.swift"; path = "OnlyMapView/Model/TripPlaces+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		7C341B502750D76A00343467 /* FavoritePlaces.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoritePlaces.xcdatamodel; sourceTree = "<group>"; };
+		7C341B522750D90700343467 /* DataCoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCoreController.swift; sourceTree = "<group>"; };
 		7C4766F9274E98A200E152E8 /* SFSafariViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariViewWrapper.swift; sourceTree = "<group>"; };
 		7C94AD37273D72E70092229E /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		7C94AD39273D7EDD0092229E /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
@@ -55,6 +74,7 @@
 		7CD0682F2736DBB6008CCE9E /* FavoritePlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaces.swift; sourceTree = "<group>"; };
 		7CD068312736DBBD008CCE9E /* MyTrips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTrips.swift; sourceTree = "<group>"; };
 		7CD068332736DBC8008CCE9E /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
+		7CD52D03275271790080DDAC /* PlaceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,14 +91,19 @@
 		7C94AD34273D72190092229E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7C341B4F2750D76A00343467 /* PlacesModel.xcdatamodeld */,
 				7CD068212736DB25008CCE9E /* ContentView.swift */,
-				7C1D7E9D2741843900AA1D4C /* PlaceDetail.swift */,
+				7CD52D03275271790080DDAC /* PlaceDetail.swift */,
+				7C21B33A2760B95B0009A77E /* TripPickerModel.swift */,
+				7C21B33C2760BD880009A77E /* TripPickerViewModel.swift */,
+				7C21B33827609D2A0009A77E /* TripPickerView.swift */,
 				7C4766F9274E98A200E152E8 /* SFSafariViewWrapper.swift */,
 				7CD0682D2736DBA2008CCE9E /* MapScreen.swift */,
 				7C0EE0E82742632700001317 /* LazyView.swift */,
 				7CB0554D273C51B0001C8007 /* FilterUI.swift */,
 				7CD0682F2736DBB6008CCE9E /* FavoritePlaces.swift */,
 				7CD068312736DBBD008CCE9E /* MyTrips.swift */,
+				7C21B33E2760C9540009A77E /* DetailList.swift */,
 				7CD068332736DBC8008CCE9E /* Contacts.swift */,
 			);
 			path = View;
@@ -99,7 +124,12 @@
 		7C94AD36273D72480092229E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7C21B3402760D1E50009A77E /* TripLists+CoreDataClass.swift */,
+				7C21B3412760D1E50009A77E /* TripLists+CoreDataProperties.swift */,
+				7C21B3422760D1E50009A77E /* TripPlaces+CoreDataClass.swift */,
+				7C21B3432760D1E50009A77E /* TripPlaces+CoreDataProperties.swift */,
 				7CA8B31E27395E0800D7D0A6 /* ApiDetailedResponse.swift */,
+				7C341B522750D90700343467 /* DataCoreController.swift */,
 				7CA8B31C27395DC400D7D0A6 /* ApiRadiusResponse.swift */,
 				7C94AD37273D72E70092229E /* FilterModel.swift */,
 				7C94AD3B273E57FE0092229E /* MarkersModel.swift */,
@@ -217,15 +247,24 @@
 			files = (
 				7CD068322736DBBD008CCE9E /* MyTrips.swift in Sources */,
 				7CD0682E2736DBA2008CCE9E /* MapScreen.swift in Sources */,
-				7C1D7E9E2741843900AA1D4C /* PlaceDetail.swift in Sources */,
+				7C341B512750D76A00343467 /* PlacesModel.xcdatamodeld in Sources */,
 				7C4766FA274E98A200E152E8 /* SFSafariViewWrapper.swift in Sources */,
+				7CD52D04275271790080DDAC /* PlaceDetail.swift in Sources */,
 				7CD068342736DBC8008CCE9E /* Contacts.swift in Sources */,
+				7C21B3472760D1E50009A77E /* TripPlaces+CoreDataProperties.swift in Sources */,
+				7C21B33B2760B95B0009A77E /* TripPickerModel.swift in Sources */,
 				7C94AD3E273E58C50092229E /* MarkersViewModel.swift in Sources */,
+				7C21B3442760D1E50009A77E /* TripLists+CoreDataClass.swift in Sources */,
+				7C21B33927609D2A0009A77E /* TripPickerView.swift in Sources */,
 				7C94AD3A273D7EDD0092229E /* FilterViewModel.swift in Sources */,
+				7C341B532750D90700343467 /* DataCoreController.swift in Sources */,
 				7C94AD38273D72E70092229E /* FilterModel.swift in Sources */,
+				7C21B33D2760BD880009A77E /* TripPickerViewModel.swift in Sources */,
 				7CA8B31F27395E0800D7D0A6 /* ApiDetailedResponse.swift in Sources */,
 				7C0EE0E92742632700001317 /* LazyView.swift in Sources */,
+				7C21B33F2760C9540009A77E /* DetailList.swift in Sources */,
 				7CA8B31927395BDB00D7D0A6 /* CurrentLocation.swift in Sources */,
+				7C21B3452760D1E50009A77E /* TripLists+CoreDataProperties.swift in Sources */,
 				7C94AD40273E5FF40092229E /* MapModel.swift in Sources */,
 				7CD068222736DB25008CCE9E /* ContentView.swift in Sources */,
 				7C94AD3C273E57FE0092229E /* MarkersModel.swift in Sources */,
@@ -234,6 +273,7 @@
 				7C94AD42273E612A0092229E /* MapViewModel.swift in Sources */,
 				7CD068302736DBB6008CCE9E /* FavoritePlaces.swift in Sources */,
 				7CB0554E273C51B0001C8007 /* FilterUI.swift in Sources */,
+				7C21B3462760D1E50009A77E /* TripPlaces+CoreDataClass.swift in Sources */,
 				7CA8B31D27395DC400D7D0A6 /* ApiRadiusResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +479,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7C341B4F2750D76A00343467 /* PlacesModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7C341B502750D76A00343467 /* FavoritePlaces.xcdatamodel */,
+			);
+			currentVersion = 7C341B502750D76A00343467 /* FavoritePlaces.xcdatamodel */;
+			path = PlacesModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7CD068142736DB25008CCE9E /* Project object */;
 }

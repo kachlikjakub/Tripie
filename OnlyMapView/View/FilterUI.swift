@@ -32,7 +32,7 @@ struct FilterUI: View {
                             ForEach(FilterModel.rateOptions, id:\.self){
                                 Text($0)
                             }
-                        }//.pickerStyle(.segmented)
+                        }.pickerStyle(.segmented)
                         
                     }.textCase(nil)
                     //Section ("Category of places") {

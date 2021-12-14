@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-struct DataController{
+class DataController{
     static let shared = DataController()
 
     let container = NSPersistentContainer(name: "PlacesModel")
@@ -16,8 +16,10 @@ struct DataController{
     init(){
         container.loadPersistentStores{ description, error in
             if let error = error {
+                //print(error)
                 fatalError("Error: \(error.localizedDescription)")
             }
+            self.container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
     }
 }

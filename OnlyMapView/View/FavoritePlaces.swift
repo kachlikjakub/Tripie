@@ -9,16 +9,16 @@ import SwiftUI
 
 struct FavoritePlaces: View {
     @Environment (\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var coreData: FetchedResults<SavedPlaces>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.dateAdded, order: .reverse)]) var coreData: FetchedResults<SavedPlaces>
     
     
     var body: some View {
         NavigationView{
         VStack{
-            Text("List")
             List(coreData){ place in
-                NavigationLink(destination: NewPlaceDetail(DataCore: place)){
-                    Text("\(place.name ?? "Not found") \(place.xid ?? "Not found")")
+                NavigationLink(destination: PlaceDetail(DataCore: place)){
+                    Text("\(place.name ?? "Not found")")
+                        .lineLimit(1)
                 }
                 .swipeActions{
                     Button(action:{
@@ -33,8 +33,9 @@ struct FavoritePlaces: View {
                 }
             }
         }
-        .navigationBarHidden(true)
-    }
+            .navigationTitle("Your favorite places")
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 

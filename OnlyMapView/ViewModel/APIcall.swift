@@ -28,7 +28,14 @@ class Api : ObservableObject{
     let DefaultAPIKey = "5ae2e3f221c38a28845f05b6d8852d7cc0e894fa7e45aa19666b1410"
     
     func getData(radius:Int, mapCoordinates: CLLocationCoordinate2D, filter:Filter){
-        let wholeURL = LoadPlacesURL + "radius=\(radius)&" + "lon=\(mapCoordinates.longitude)&" + "lat=\(mapCoordinates.latitude)&" + "rate=3h&" + "limit=\(Int(filter.limit))&" + "apikey=\(DefaultAPIKey)"
+        let filteredKinds =
+        (filter.categories.adults ? F_Categ.adults.rawValue + "," : "") +
+        (filter.categories.accomodations ? F_Categ.accomodations.rawValue + "," : "") +
+        (filter.categories.amusements ? F_Categ.amusements.rawValue + "," : "") +
+        (filter.categories.interestingPlaces ? F_Categ.interestingPlaces.rawValue + "," : "") +
+        (filter.categories.sport ? F_Categ.sport.rawValue + "," : "") +
+        (filter.categories.touristFacilities ? F_Categ.touristFacilities.rawValue + "," : "")
+        let wholeURL = LoadPlacesURL + "radius=\(radius)&" + "lon=\(mapCoordinates.longitude)&" + "lat=\(mapCoordinates.latitude)&" + "rate=\(filter.rate)&" + "limit=\(Int(filter.limit))&" + "kinds=\(filteredKinds)&" + "apikey=\(DefaultAPIKey)"
         let url = URL(string: wholeURL)!
         cancellable?.cancel()
         cancellable = URLSession(configuration: .default)
